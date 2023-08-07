@@ -1,0 +1,44 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_2.cshtml";
+}
+    <form method="post" class="text-center">
+        <input type="hidden" value="@ViewBag.StadiumId" name="Id" />
+        <h1>League</h1>
+        <select class="custom-select league-select">
+            <option value="-1">Select league</option>
+            @foreach (League league in Model.Leagues)
+            {     
+                @if (league.Id == ViewBag.LeagueId)
+                {
+                    <option value="@league.Id" selected>@league.Name</option>
+                }
+                else
+                {
+                    <option value="@league.Id">@league.Name</option>
+                }
+            }
+        </select>
+        <br />
+        <h1>Club</h1>
+        <select name="Club_id" class="custom-select host-team-select">
+            <option value="-1">Select club</option>
+            @foreach (Club club in Model.Clubs)
+            {
+                @if (club.Id == ViewBag.ClubId)
+                {
+                    <option data-item="@club.Home_league_id" selected value="@club.Id">@club.Name</option>
+                }
+                else
+                {
+                    <option data-item="@club.Home_league_id" value="@club.Id">@club.Name</option>
+                }
+            }
+        </select>
+        <h1>Stadium name</h1>
+        <input name="Name" type="text" class="form-control" value="@ViewBag.StadiumName"/>
+        <br>
+        <input type="submit" value="Edit" class="btn btn-outline-secondary btn-lg" />
+    </form>

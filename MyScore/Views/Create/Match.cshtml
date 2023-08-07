@@ -1,0 +1,83 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_2.cshtml";
+}
+    <form method="post" class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Select competition:</h1>
+                    <select name="League_id" class="custom-select league-select">
+                        <option value="-1">Select league</option>
+                        @foreach (League league in Model.Leagues)
+                        {
+                            <option value="@league.Id">@league.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row teams-row">
+                <div class="col">
+                    <h1>Host team:</h1>
+                    <select name="Host_team_id" class="custom-select host-team-select">
+                        <option value="-1">Select club</option>
+                        @foreach (Club club in Model.Clubs)
+                        {
+                            <option data-item="@club.Home_league_id" value="@club.Id">@club.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col">
+                    <h1>Guest team:</h1>
+                    <select name="Guest_team_id" class="custom-select guest-team-select">
+                        <option value="-1">Select club</option>
+                        @foreach (Club club in Model.Clubs)
+                        {
+                            <option data-item="@club.Home_league_id" value="@club.Id">@club.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1>Score</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Home goals</span>
+                        </div>
+                        <input type="text" id="score" name="Score" placeholder="Score" class="form-control text-center" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">Guest goals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1>Date</h1>
+                    <input type="date" name="Date" class="form-control" />
+                </div>
+                <div class="col">
+                    <h1>Stadium</h1>
+                    <select name="Stadium_id" class="custom-select">
+                        @foreach (Stadium stadium in Model.Stadiums)
+                        {
+                            <option value="@stadium.Id">@stadium.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col">
+                    <button id="btn-match-create" class="btn-match-create btn btn-outline-secondary btn-lg" type="submit">Create</button>
+                </div>
+            </div>
+        </div>
+    </form>

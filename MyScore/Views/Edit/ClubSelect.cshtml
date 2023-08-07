@@ -1,0 +1,39 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_1.cshtml";
+}
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr class="text-center">
+            <th scope="col" colspan="4">Clubs</th>
+        </tr>
+    </thead>
+    @foreach (var league in Model.Leagues)
+    {
+        <tr class="bg-light text-center">
+            <td scope="row" colspan="4">@league.Name</td>
+        </tr>
+        @foreach (var club in Model.Clubs.Where(x => x.Home_league_id == league.Id))
+        {
+            <tr>
+                <td>@club.Name</td>
+                <td>@Model.Leagues.Where(x => x.Id == club.Home_league_id).First().Name</td>
+                <td>
+                    <form action="~/Edit/ClubEdit/@club.Id">
+                        <button class="btn btn-outline-secondary">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <button type="submit" class="btn btn-outline-danger" asp-route-id="@club.Id">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+
+</table>

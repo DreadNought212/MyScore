@@ -1,0 +1,49 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_1.cshtml";
+}
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center" width="40%">
+                    <a href="~/Info/ClubInfo/@ViewBag.HostTeamId" class="text-white">
+                        @ViewBag.HostTeamName
+                    </a>
+                </th>
+                <th class="text-center" colspan="2" width="20%">@ViewBag.Score</th>
+                <th class="text-center" width="40%">
+                    <a href="~/Info/ClubInfo/@ViewBag.GuestTeamId" class="text-white">
+                        @ViewBag.GuestTeamName
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tr class="bg-light text-center">
+            <th colspan="4">
+                <a>
+                    League
+                </a>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <a href="~/Info/LeagueInfo/@ViewBag.LeagueId">
+                    @Model.Leagues.Where(x => x.Id == @ViewBag.LeagueId).First().Name
+                </a>
+            </td>  
+        </tr>
+        <tr class="bg-light">
+            <th colspan="4">Data</th>
+        </tr>
+        <tr>
+            <th colspan="4">@ViewBag.Date</th>
+        </tr>
+        <tr class="bg-light">
+            <th colspan="4">Stadium</th>
+        </tr>
+        <tr>
+            <td colspan="4">@Model.Stadiums.Where(x => x.Id == @ViewBag.StadiumId).First().Name</td>
+        </tr>
+    </table>

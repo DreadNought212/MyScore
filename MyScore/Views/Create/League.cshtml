@@ -1,0 +1,23 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_2.cshtml";
+}
+
+    <form method="post" class="text-center">
+        <h1>League name</h1>
+        <input class="form-control" name="Name" type="text">
+        <h1>Select country</h1>
+        <select name="Country_id" class="custom-select">
+            @foreach (Country country in Model.Countries)
+            {
+                <option value="@country.Id">@country.Name</option>
+            }
+        </select>
+        <br>
+        <br />
+        <button class="btn btn-outline-secondary btn-lg" type="submit">Create</button>
+    </form>
+    
+

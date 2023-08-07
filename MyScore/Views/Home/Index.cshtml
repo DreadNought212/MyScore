@@ -1,0 +1,31 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_1.cshtml";
+}
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th colspan="5" class="text-center">Matches</th>
+                    </tr>
+                </thead>
+                @foreach (var league in Model.Leagues)
+                {
+                    @if (Model.Matches.Where(x => x.League_id == league.Id).Count() != 0)
+                    {
+                        <tr class="bg-light"  onclick="window.location.href='/Info/LeagueInfo/@league.Id'; return false"  style="cursor: pointer;">
+                            <td colspan="5" class="text-center">@league.Name</td>
+                        </tr>
+                    }
+                    @foreach (var match in Model.Matches.Where(x => x.League_id == league.Id))
+                    {
+                        <tr onclick="window.location.href='/Info/MatchInfo/@match.Id'; return false"  style="cursor: pointer;">
+                            <td width="40%" class="text-right">@Model.Clubs.Where(x => x.Id == match.Host_team_id).FirstOrDefault().Name</td>
+                            <td width="20%" class="text-center">@match.Score</td>
+                            <td width="40%" class="text-left">@Model.Clubs.Where(x => x.Id == match.Guest_team_id).First().Name</td>
+                        </tr>
+                    }
+                }
+            </table>
+    

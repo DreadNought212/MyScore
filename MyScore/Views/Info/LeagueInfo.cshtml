@@ -1,0 +1,59 @@
+﻿@using MyScore.ViewModels
+@using MyScore.Models
+@model MatchClubLeagueModel
+@{
+    Layout = "~/Views/Layouts/Layout_1.cshtml";
+}
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th  colspan="3" class="text-center">
+                    @ViewBag.LeagueName
+                </th>
+            </tr>
+        </thead>
+        @foreach (var club in Model.Clubs.Where(x => x.Home_league_id == ViewBag.LeagueId))
+        {
+            <tr class="bg-light">
+                <td colspan="3" >
+                    <a href="~/Info/ClubInfo/@club.Id">
+                        @club.Name
+                    </a>
+                </td>
+            </tr>
+        }
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="3" class="text-center">Last matches</th>
+            </tr>
+        </thead>
+        @foreach (var match in Model.Matches)
+        {
+            @if (match.League_id == ViewBag.LeagueId)
+            {
+                <tr style="cursor: pointer;" onclick="window.location.href='/Info/MatchInfo/@match.Id'; return false" class="table-hover">
+                    <td width="40%" class="text-right">@Model.Clubs.Where(x => x.Id == match.Host_team_id).FirstOrDefault().Name</td>
+                    <td width="20%" class="text-center">@match.Score</td>
+                    <td width="40%" class="text-left">@Model.Clubs.Where(x => x.Id == match.Guest_team_id).First().Name</td>
+                </tr>
+            }
+        }
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="3" class="text-center">Other leagues</th>
+            </tr>
+        </thead>
+        @foreach (var league in Model.Leagues)
+        {
+            @if (league.Id != ViewBag.LeagueId)
+            {
+                <tr class="bg-light">
+                    <td colspan="3">
+                        <a href="~/Info/LeagueInfo/@league.Id">
+                            @league.Name
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
